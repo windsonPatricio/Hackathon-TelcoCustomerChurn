@@ -1,0 +1,47 @@
+# Local virtual environments (created by uv or python -m venv)
+.venv/
+venv/
+env/
+ENV/
+
+# Python / pip cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Logs
+*.log
+
+# Test / coverage cache
+.pytest_cache/
+.coverage
+coverage.xml
+
+# IDE / editor files
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Local configuration files / secrets
+.env
+.env.local
+.env.*.local
+
+# Build / distribution files (likely unused here)
+build/
+dist/
+
+# Docker / compose
+*.env
+docker-compose.override.yml
+
+# Other common caches / tools
+.mypy_cache/
+.ruff_cache/
+.pyre/
