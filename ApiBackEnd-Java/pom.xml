@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com</groupId>
-	<artifactId>ReterMais</artifactId>
+	<artifactId>TelcoCustomerChurn</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ReterMais</name>
+	<name>TelcoCustomerChurn</name>
 	<description>Uma solução que preveja se um cliente está propenso a cancelar um serviço</description>
 	<url/>
 	<licenses>
