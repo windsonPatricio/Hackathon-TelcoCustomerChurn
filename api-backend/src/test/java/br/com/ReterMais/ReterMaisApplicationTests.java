@@ -1,10 +1,10 @@
-package br.com.TelcoCustomerChurn;
+package br.com.ReterMais;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TelcoCustomerChurnApplicationTests {
+class ReterMaisApplicationTests {
 
 	@Test
 	void contextLoads() {
