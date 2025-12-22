@@ -1,5 +1,20 @@
 package br.com.TelcoCustomerChurn.Model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum LinhasMultiplas {
-    NAO, SEM_TELEFONE, SIM
+    NAO("nao"),
+    SEM_TELEFONE( "sem_telefone"),
+    SIM("sim");
+
+    private final String descricao;
+
+    LinhasMultiplas(String descricao) {
+        this.descricao = descricao;
+    }
+
+    @JsonValue
+    public String getDescricao() {
+        return descricao;
+    }
 }
