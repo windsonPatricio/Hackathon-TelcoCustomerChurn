@@ -31,3 +31,20 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Arquivos de sistema do Mac
+.DS_Store
+**/.DS_Store
+
+# Configurações da IDE (IntelliJ)
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Build (Maven)
+target/
+**/target/
+
+# Pasta antiga? todo
+ApiBackEnd-Java/
