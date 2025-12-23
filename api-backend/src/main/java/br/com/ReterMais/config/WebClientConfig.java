@@ -1,4 +1,4 @@
-package br.com.TelcoCustomerChurn.Config;
+package br.com.ReterMais.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

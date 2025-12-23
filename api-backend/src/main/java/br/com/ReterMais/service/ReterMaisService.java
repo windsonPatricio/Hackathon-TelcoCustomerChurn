@@ -1,6 +1,7 @@
 package br.com.ReterMais.service;
 
 
+import br.com.ReterMais.dtos.RequestPythonDTO;
 import br.com.ReterMais.dtos.ResponsePythonDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -17,7 +18,7 @@ public class ReterMaisService {
                 .build();
     }
 
-    public ResponsePythonDTO preverCancelamento (ResponsePythonDTO request){
+    public ResponsePythonDTO preverCancelamento (RequestPythonDTO request){
 
         //consulta o modelo atraves da requisicao, e retorna os valores de resposta do modelo.
         return webClient.post()
