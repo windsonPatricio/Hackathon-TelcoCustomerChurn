@@ -48,3 +48,13 @@ target/
 
 # Pasta antiga? todo
 ApiBackEnd-Java/
+
+# --- Sistema Operacional (Mac/Windows/Linux) ---
+.DS_Store
+**/.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# --- Logs e outros ---
+*.log
