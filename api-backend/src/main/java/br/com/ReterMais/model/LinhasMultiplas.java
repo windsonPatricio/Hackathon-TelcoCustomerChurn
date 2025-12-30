@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum LinhasMultiplas {
     NAO("nao"),
-    SEM_TELEFONE( "sem_telefone"),
+    SEM_TELEFONE("sem_telefone"),
     SIM("sim");
 
     private final String descricao;
