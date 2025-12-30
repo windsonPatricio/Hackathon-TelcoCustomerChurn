@@ -1,0 +1,40 @@
+meta {
+  name: TesteMetodoPagamentoInvalido
+  type: http
+  seq: 7
+}
+
+post {
+  url: base
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "genero": "homem",
+    "idoso": 0,
+    "parceiro": 1,
+    "dependentes": 0,
+    "tempo_contrato_meses": 12,
+    "servico_telefone": 1,
+    "linhas_multiplas": "nao",
+    "tipo_internet": "fibra",
+    "seguranca_online": "sim",
+    "backup_online": "nao",
+    "protecao_dispositivo": "nao",
+    "suporte_tecnico": "nao",
+    "streaming_tv": "sim",
+    "streaming_filmes": "sim",
+    "tipo_contrato": "mensal",
+    "cobranca_digital": 1,
+    "metodo_pagamento": "dinheiro",
+    "cobranca_mensal": 79.85,
+    "cobranca_total": 1200.50
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
