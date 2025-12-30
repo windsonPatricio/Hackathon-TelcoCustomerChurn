@@ -1,0 +1,14 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <option name="AUTODETECT_INDENTS" value="false" />
+    <JavaCodeStyleSettings>
+      <option name="ANNOTATION_NEW_LINE_IN_RECORD_COMPONENT" value="true" />
+      <option name="RECORD_COMPONENTS_WRAP" value="2" />
+      <option name="NEW_LINE_AFTER_LPAREN_IN_RECORD_HEADER" value="true" />
+    </JavaCodeStyleSettings>
+    <codeStyleSettings language="JAVA">
+      <option name="ENUM_CONSTANTS_WRAP" value="2" />
+      <option name="SOFT_MARGINS" value="120" />
+    </codeStyleSettings>
+  </code_scheme>
+</component>
