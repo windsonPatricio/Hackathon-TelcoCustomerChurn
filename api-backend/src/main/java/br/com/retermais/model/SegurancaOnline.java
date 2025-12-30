@@ -1,15 +1,15 @@
-package br.com.ReterMais.model;
+package br.com.retermais.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum TipoInternet {
-    DSL("dsl"),
-    FIBRA("fibra"),
-    SEM_INTERNET("sem_internet");
+public enum SegurancaOnline {
+    NAO("nao"),
+    SEM_INTERNET("sem_internet"),
+    SIM("sim");
 
     private final String descricao;
 
-    TipoInternet(String descricao) {
+    SegurancaOnline(String descricao) {
         this.descricao = descricao;
     }
 

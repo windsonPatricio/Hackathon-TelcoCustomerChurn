@@ -1,15 +1,15 @@
-package br.com.ReterMais.model;
+package br.com.retermais.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum StreamingTv {
-    NAO("nao"),
-    SEM_INTERNET("sem_internet"),
-    SIM("sim");
+public enum TipoContrato {
+    DOIS_ANOS("dois_anos"),
+    MENSAL("mensal"),
+    UM_ANO("um_ano");
 
     private final String descricao;
 
-    StreamingTv(String descricao) {
+    TipoContrato(String descricao) {
         this.descricao = descricao;
     }
 

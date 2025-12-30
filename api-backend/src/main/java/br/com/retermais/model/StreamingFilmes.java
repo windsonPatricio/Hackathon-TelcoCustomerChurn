@@ -1,4 +1,4 @@
-package br.com.ReterMais.model;
+package br.com.retermais.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

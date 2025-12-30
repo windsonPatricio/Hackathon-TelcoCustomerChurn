@@ -1,4 +1,4 @@
-package br.com.ReterMais.dtos;
+package br.com.retermais.dtos;
 
 public record ResponsePythonDTO(
         String previsao,

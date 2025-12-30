@@ -1,10 +1,11 @@
-package br.com.ReterMais.dtos;
+package br.com.retermais.dtos;
 
-import br.com.ReterMais.model.*;
+import br.com.retermais.model.*;
 
 import java.math.BigDecimal;
 
-public record RequestPythonDTO(
+public record RequestDTO(
+        String idCliente,
         Genero genero,
         Integer idoso,
         Integer parceiro,

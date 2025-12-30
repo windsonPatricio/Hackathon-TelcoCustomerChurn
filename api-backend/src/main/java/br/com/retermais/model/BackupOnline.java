@@ -1,20 +1,20 @@
-package br.com.ReterMais.model;
+package br.com.retermais.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum ProtecaoDispositivo {
+public enum BackupOnline {
     NAO("nao"),
     SEM_INTERNET("sem_internet"),
     SIM("sim");
 
     private final String descricao;
 
-    ProtecaoDispositivo(String descricao) {
+    private BackupOnline(String descricao) {
         this.descricao = descricao;
     }
 
     @JsonValue
     public String getDescricao() {
-        return descricao;
+        return this.descricao;
     }
 }

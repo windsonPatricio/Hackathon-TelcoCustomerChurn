@@ -1,8 +1,8 @@
-package br.com.ReterMais.controller;
+package br.com.retermais.controller;
 
-import br.com.ReterMais.dtos.RequestDTO;
-import br.com.ReterMais.dtos.ResponsePythonDTO;
-import br.com.ReterMais.service.ReterMaisService;
+import br.com.retermais.dtos.RequestDTO;
+import br.com.retermais.dtos.ResponsePythonDTO;
+import br.com.retermais.service.ReterMaisService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
