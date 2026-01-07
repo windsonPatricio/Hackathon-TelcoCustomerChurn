@@ -1,0 +1,56 @@
+name: ML Model API CI
+
+on:
+  push:
+    branches:
+      - dev               # Branch principal de integração
+      - 'ml/**'           # Cobre: ml/feature-*, ml/fix-*, ml/chore-* (Conforme Seção 2 do Guia de Branches)
+      - 'integration/**'  # Cobre: integration/model-api-v1 (Conforme Seção 5.1 do Guia)
+    paths:
+      - 'ml/model_api/**' # Segurança extra: só roda se arquivos desta pasta mudarem
+  
+  pull_request:
+    branches:
+      - dev
+    paths:
+      - 'ml/model_api/**'
+
+jobs:
+  test-model-api:
+    name: Run Tests and Lint
+    runs-on: ubuntu-latest
+    
+    # Define o diretório padrão para comandos de terminal (run)
+    defaults:
+      run:
+        working-directory: ./ml/model_api
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 1. Configura o Python usando o arquivo .python-version
+      # Isso usa o cache do GitHub Actions para o binário do Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          # Actions não respeitam o 'defaults.run.working-directory'.
+          # Precisamos passar o caminho completo desde a raiz do repo.
+          python-version-file: "ml/model_api/.python-version"
+
+      # 2. Instala o UV (versão pinada) e habilita cache de dependências
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "0.6.3"
+          enable-cache: true
+          cache-dependency-glob: "ml/model_api/uv.lock"
+
+      # 3. Sincroniza o ambiente
+      # O uv vai detectar automaticamente o Python configurado no passo anterior
+      - name: Install dependencies
+        run: uv sync --frozen --all-extras --dev
+
+      # 4. Roda os testes
+      - name: Run Tests
+        run: uv run pytest tests -v

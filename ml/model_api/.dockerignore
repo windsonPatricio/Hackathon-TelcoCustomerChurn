@@ -1,0 +1,11 @@
+__pycache__
+*.pyc
+.venv
+.pytest_cache
+tests
+pytest.ini
+.mypy_cache
+.coverage
+.git
+.env
+tests/
