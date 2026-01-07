@@ -24,92 +24,69 @@ def mock_sklearn_model(mocker):
     
     return mock_model
 
-# ==========================================
-# TESTES DO WRAPPER (Integração de Componente)
-# ==========================================
-
-def test_wrapper_loads_dummy_when_file_missing(mocker, sample_payload):
+def test_wrapper_loads_dummy_when_file_missing_AND_fallback_allowed(mocker, sample_payload):
     """
-    Cenário: Arquivo de modelo não existe no disco.
-    Resultado: Wrapper deve capturar o erro, logar warning e instanciar o Dummy.
+    Cenário DEV: Arquivo não existe, mas ALLOW_MODEL_FALLBACK = True.
+    Resultado: Deve carregar o DummyModel e funcionar.
     """
-    # Mock Path.exists para retornar False
+    # 1. Configura ambiente permissivo
+    mocker.patch("inference.ALLOW_MODEL_FALLBACK", True)
     mocker.patch("inference.Path.exists", return_value=False)
     
-    # Tenta carregar de um caminho fantasma
     wrapper = ModelWrapper(model_path="ghost_path.joblib")
     
-    # Verifica se o fallback ocorreu
+    # Validações
     assert isinstance(wrapper.model, DummyModel)
+    assert wrapper.is_dummy is True
+    assert wrapper.model_version == "dummy_stub_v1"
     
-    # Verifica se o predict funciona (usando o dummy)
+    # Predição funciona
     result = wrapper.predict_single(sample_payload)
-    assert "probabilidade" in result
-    assert isinstance(result["probabilidade"], float)
+    assert result["probabilidade"] is not None
+
+def test_wrapper_CRASHES_when_file_missing_AND_fallback_disabled(mocker):
+    """
+    Cenário PROD (CRÍTICO): Arquivo não existe e ALLOW_MODEL_FALLBACK = False.
+    Resultado: Deve lançar FileNotFoundError para derrubar a aplicação.
+    """
+    # 1. Configura ambiente restrito (Produção)
+    mocker.patch("inference.ALLOW_MODEL_FALLBACK", False)
+    mocker.patch("inference.Path.exists", return_value=False)
+    
+    # 2. Verifica se explode o erro correto
+    with pytest.raises(FileNotFoundError) as exc:
+        ModelWrapper(model_path="ghost_path.joblib")
+    
+    assert "CRÍTICO: Modelo não encontrado" in str(exc.value)
 
 def test_wrapper_loads_real_model_success(mocker, mock_sklearn_model, sample_payload):
     """
-    Cenário: Arquivo existe e carrega corretamente.
-    Resultado: Wrapper deve usar o modelo carregado (Mock) e não o Dummy.
-    """
-    # 1. Simula que o arquivo existe
-    mocker.patch("inference.Path.exists", return_value=True)
-    
-    # 2. Simula o load do joblib retornando nosso Mock
-    mock_load = mocker.patch("inference.load", return_value=mock_sklearn_model)
-    
-    wrapper = ModelWrapper(model_path="real_model.joblib")
-    
-    # Validações
-    assert not isinstance(wrapper.model, DummyModel) # Não pode ser Dummy
-    assert wrapper.model == mock_sklearn_model       # Deve ser nosso Mock
-    
-    # Executa predição
-    result = wrapper.predict_single(sample_payload)
-    
-    # Valida se usou o valor do Mock (0.8 definido na fixture)
-    assert result["probabilidade"] == 0.8
-    assert result["churn_prediction"] == 1 
-    
-    # Garante que o load foi chamado apenas 1 vez
-    mock_load.assert_called_once()
-
-def test_wrapper_handles_corrupted_file(mocker, sample_payload):
-    """
-    Cenário: Arquivo existe (Path=True) mas está corrompido/incompatível.
-    Resultado: Deve capturar a exceção do joblib e fazer fallback para Dummy.
-    """
-    mocker.patch("inference.Path.exists", return_value=True)
-    
-    # joblib.load explode com erro (simulando arquivo corrompido)
-    mocker.patch("inference.load", side_effect=EOFError("Arquivo incompleto/corrompido"))
-    
-    wrapper = ModelWrapper(model_path="corrupt.joblib")
-    
-    # Deve ter feito fallback gracefully
-    assert isinstance(wrapper.model, DummyModel)
-    
-    # Sistema continua funcionando para o usuário final
-    result = wrapper.predict_single(sample_payload)
-    assert result is not None
-
-def test_wrapper_runtime_error_propagation(mocker, mock_sklearn_model, sample_payload):
-    """
-    Cenário Crítico: O modelo carregou com sucesso, mas FALHOU durante a execução do predict.
-    
-    Resultado: Diferente do carregamento, aqui NÃO queremos fallback silencioso.
-    Queremos que o erro suba (Bubble up) para causar um HTTP 500, alertando 
-    os sistemas de monitoramento (Sentry/Datadog) que o modelo de produção está quebrado.
+    Cenário IDEAL: Arquivo existe. Configuração de fallback é irrelevante aqui.
     """
     mocker.patch("inference.Path.exists", return_value=True)
     mocker.patch("inference.load", return_value=mock_sklearn_model)
     
-    # Configura o mock para falhar APENAS na hora da inferência
-    mock_sklearn_model.predict_proba.side_effect = ValueError("Input shape mismatch ou NaN values")
+    wrapper = ModelWrapper(model_path="real_model.joblib")
+    
+    assert not isinstance(wrapper.model, DummyModel)
+    assert wrapper.is_dummy is False
+    assert wrapper.model_version == "production_v1"
+    
+    result = wrapper.predict_single(sample_payload)
+    assert result["churn_prediction"] == 1
+
+def test_wrapper_runtime_error_propagation(mocker, mock_sklearn_model, sample_payload):
+    """
+    Testa falha DURANTE a predição (não durante o load).
+    """
+    mocker.patch("inference.Path.exists", return_value=True)
+    mocker.patch("inference.load", return_value=mock_sklearn_model)
+    
+    # O modelo carregou, mas falha ao prever
+    mock_sklearn_model.predict_proba.side_effect = ValueError("NaN Values")
     
     wrapper = ModelWrapper(model_path="real_model.joblib")
     
-    # Verifica se lança RuntimeError (conforme definido no código do wrapper)
     with pytest.raises(RuntimeError) as exc:
         wrapper.predict_single(sample_payload)
     

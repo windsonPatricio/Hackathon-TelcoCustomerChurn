@@ -4,9 +4,18 @@ from app import app
 
 # TODO: Verificar a necessidade de mudar o escopo dos fixtures para 'module' ou 'session'.
 @pytest.fixture
-def client():
-    # O TestClient com block lança o evento de startup (lifespan),
-    # garantindo que o ModelWrapper seja inicializado.
+def client(mocker):
+    """
+    Cliente de teste com startup garantido em modo DUMMY.
+    """
+    # 1. Permite o fallback (para não crashar)
+    mocker.patch("inference.ALLOW_MODEL_FALLBACK", True)
+    
+    # 2. Força o sistema a achar que NÃO tem arquivo no disco
+    # Isso garante que ele caia no 'else' e carregue o DummyModel
+    mocker.patch("inference.Path.exists", return_value=False)
+    
+    # 2. Inicia o cliente
     with TestClient(app) as c:
         yield c
 
