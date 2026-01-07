@@ -4,3 +4,8 @@ __pycache__
 .pytest_cache
 tests
 pytest.ini
+.mypy_cache
+.coverage
+.git
+.env
+tests/
