@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 from joblib import load
 
-from config import MODEL_PATH, CHURN_THRESHOLD
+from config import MODEL_PATH, CHURN_THRESHOLD, ALLOW_MODEL_FALLBACK
 from model_stub import DummyModel
 
 logger = logging.getLogger(__name__)
@@ -19,6 +19,13 @@ class ModelWrapper:
     def __init__(self, model_path: Optional[Path] = None, threshold: float = CHURN_THRESHOLD) -> None:
         self.model_path = Path(model_path) if model_path else Path(MODEL_PATH)
         self.threshold = threshold
+        
+        # Metadados para /health
+        self.is_dummy = False
+        # TODO: Implementar metadados
+        self.model_version = "unknown"
+        
+        
         self.model = self._load_model()
 
     def _load_model(self) -> Any:
@@ -28,15 +35,33 @@ class ModelWrapper:
         """
         if self.model_path.exists():
             try:
-                logger.info(f"Carregando modelo de produção: {self.model_path}")
+                logger.info(f"Tentando carregar modelo de: {self.model_path}")
                 model = load(self.model_path)
-                logger.info("Modelo carregado com sucesso.")
+                logger.info("Modelo de produção carregado com sucesso.")
+                self.is_dummy = False
+                # TODO: Implementar extração de versão do modelo real
+                self.model_version = "production_v1"
                 return model
             except Exception as e:
-                logger.error(f"Arquivo encontrado mas corrompido: {e}. Iniciando Fallback.")
+                logger.error(f"Arquivo encontrado mas corrompido: {e}")
+                # Se o arquivo existe mas tá quebrado, talvez devêssemos falhar mesmo com fallback on.
+                # Mas vamos seguir a regra do fallback por enquanto.
         else:
             logger.warning(f"Modelo não encontrado em {self.model_path}. Iniciando Fallback.")
 
+        # Cenário de Falha: Arquivo não existe ou corrompido
+        if not ALLOW_MODEL_FALLBACK:
+            msg = (
+                f"CRÍTICO: Modelo não encontrado em {self.model_path} e "
+                "ALLOW_MODEL_FALLBACK=False. A aplicação será encerrada."
+            )
+            logger.critical(msg)
+            raise FileNotFoundError(msg)
+
+        # Cenário de Fallback Permitido
+        logger.warning(f"MODELO NÃO ENCONTRADO. Iniciando em modo FALLBACK (DummyModel).")
+        self.is_dummy = True
+        self.model_version = "dummy_stub_v1"
         return DummyModel()
 
     def _features_to_df(self, features: dict[str, Any]) -> pd.DataFrame:
@@ -69,7 +94,7 @@ class ModelWrapper:
             
             # 4. Explicabilidade (Opcional)
             # Se o modelo tiver método customizado top_features (como o Dummy), usa.
-            # Se for um pipeline padrão sklearn, retorna lista vazia (ou implementaria SHAP aqui)
+            # Se for um pipeline padrão sklearn, retorna lista vazia (ou implementar SHAP aqui)
             # TODO: Verificar a implementação de explicabilidade para modelos reais
             top_features = []
             if hasattr(self.model, "top_features"):

@@ -1,6 +1,5 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Request, Depends
-from typing import List
 import logging
 
 # Imports locais
@@ -21,13 +20,18 @@ async def lifespan(app: FastAPI):
     logger.info("Startup: Inicializando recursos de ML...")
     try:
         # Carrega o modelo e anexa ao estado da aplicação
+        # Se ALLOW_MODEL_FALLBACK=False e o arquivo não existir, 
+        # isso aqui vai dar raise FileNotFoundError e abortar o startup do Uvicorn.
+        # O container morre
         app.state.model_wrapper = ModelWrapper()
-        logger.info("Modelo carregado e pronto para inferência.")
+        
+        mode = "DUMMY" if app.state.model_wrapper.is_dummy else "PROD"
+        logger.info(f"Startup Completo. Modo de Operação: [{mode}]")
+        
     except Exception as e:
         logger.critical(f"FALHA CRÍTICA NO STARTUP: {e}", exc_info=True)
-        # Em ambientes reais (K8s), talvez devêssemos deixar o pod falhar (raise e)
-        # para que o orchestrator reinicie. Mas para este teste, deixaremos None.
-        app.state.model_wrapper = None
+        # Re-lança a exceção para matar o processo
+        raise e
     
     yield
     
@@ -56,11 +60,21 @@ def get_model(request: Request) -> ModelWrapper:
 
 @app.get("/health")
 def health():
-    """Verifica se a API está de pé e se o modelo está na memória."""
-    is_ready = getattr(app.state, "model_wrapper", None) is not None
+    """
+    Retorna saúde da API e metadados do modelo carregado.
+    """
+    wrapper = getattr(app.state, "model_wrapper", None)
+    
+    if wrapper is None:
+        # Se chegou aqui, algo muito estranho aconteceu (wrapper sumiu da memória)
+        raise HTTPException(status_code=503, detail="Modelo não inicializado")
+
     return {
-        "status": "ok", 
-        "model_loaded": is_ready
+        "status": "ok",
+        "model_loaded": True,
+        "model_type": "dummy" if wrapper.is_dummy else "production",
+        "model_version": wrapper.model_version,
+        "fallback_enabled": getattr(wrapper, "is_dummy", False) # ou ler de config
     }
 
 @app.post("/predict", response_model=PredictResponse)
@@ -85,10 +99,11 @@ def predict(payload: PredictRequest, model: ModelWrapper = Depends(get_model)):
         logger.exception("Erro não tratado no endpoint /predict")
         raise HTTPException(status_code=500, detail="Erro interno ao processar predição.")
     
-@app.post("/predict/batch", response_model=List[PredictResponse])
-def predict_batch(payloads: List[PredictRequest], request: Request):
+@app.post("/predict/batch", response_model=list[PredictResponse])
+def predict_batch(payloads: list[PredictRequest], request: Request):
     """
     Processamento em lote.
+    # TODO: Avaliar a implementação de falha parcial não abortar todo o lote.
     NOTA: Em caso de falha parcial, retorna probabilidade -1.0 para indicar erro
     ao cliente consumidor, em vez de mascarar com 0.0.
     """

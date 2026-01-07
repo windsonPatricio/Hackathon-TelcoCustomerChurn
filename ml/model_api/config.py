@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 # __file__ = .../model_api/config.py
 # parents[0] = .../model_api
 # parents[1] = .../ (Raiz do projeto)
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[0]
 
 # 2. Carregar o .env da raiz
 load_dotenv(PROJECT_ROOT / ".env")
@@ -18,13 +18,15 @@ RANDOM_SEED = int(os.getenv("RANDOM_SEED", 25))
 CHURN_THRESHOLD = float(os.getenv("CHURN_THRESHOLD", 0.5))
 
 # O padrão deve ser buscar na pasta 'models' que está na raiz
-# TODO: Possivelmente será necessário ajustar isso para produção.
 DEFAULT_MODEL_FILENAME = "modelo_churn.joblib"
 DEFAULT_MODEL_PATH = PROJECT_ROOT / "models" / DEFAULT_MODEL_FILENAME
 
 # Se a variável de ambiente existir, usa ela. Se não, usa o caminho construído acima.
 model_env = os.getenv("MODEL_PATH")
 MODEL_PATH = Path(model_env) if model_env else DEFAULT_MODEL_PATH
+
+_fallback_str = os.getenv("ALLOW_MODEL_FALLBACK", "True").lower()
+ALLOW_MODEL_FALLBACK = _fallback_str in ("false", "1", "yes")
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 
