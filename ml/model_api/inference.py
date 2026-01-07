@@ -10,22 +10,24 @@ from model_stub import DummyModel
 
 logger = logging.getLogger(__name__)
 
+
 class ModelWrapper:
     """
     Controlador responsável pelo ciclo de vida da inferência.
     Abstrai se o modelo subjacente é um Pipeline complexo ou um DummyModel.
     """
 
-    def __init__(self, model_path: Optional[Path] = None, threshold: float = CHURN_THRESHOLD) -> None:
+    def __init__(
+        self, model_path: Optional[Path] = None, threshold: float = CHURN_THRESHOLD
+    ) -> None:
         self.model_path = Path(model_path) if model_path else Path(MODEL_PATH)
         self.threshold = threshold
-        
+
         # Metadados para /health
         self.is_dummy = False
         # TODO: Implementar metadados
         self.model_version = "unknown"
-        
-        
+
         self.model = self._load_model()
 
     def _load_model(self) -> Any:
@@ -47,7 +49,9 @@ class ModelWrapper:
                 # Se o arquivo existe mas tá quebrado, talvez devêssemos falhar mesmo com fallback on.
                 # Mas vamos seguir a regra do fallback por enquanto.
         else:
-            logger.warning(f"Modelo não encontrado em {self.model_path}. Iniciando Fallback.")
+            logger.warning(
+                f"Modelo não encontrado em {self.model_path}. Iniciando Fallback."
+            )
 
         # Cenário de Falha: Arquivo não existe ou corrompido
         if not ALLOW_MODEL_FALLBACK:
@@ -59,7 +63,9 @@ class ModelWrapper:
             raise FileNotFoundError(msg)
 
         # Cenário de Fallback Permitido
-        logger.warning(f"MODELO NÃO ENCONTRADO. Iniciando em modo FALLBACK (DummyModel).")
+        logger.warning(
+            f"MODELO NÃO ENCONTRADO. Iniciando em modo FALLBACK (DummyModel)."
+        )
         self.is_dummy = True
         self.model_version = "dummy_stub_v1"
         return DummyModel()
@@ -74,24 +80,24 @@ class ModelWrapper:
     def predict_single(self, features: dict[str, Any]) -> dict[str, Any]:
         """
         Executa o pipeline de predição completo.
-        
+
         Fluxo:
         dict -> DataFrame -> Predict Proba -> Aplica Threshold -> Formata Resposta
         """
         try:
             # 1. Preparação dos dados
             X_input = self._features_to_df(features)
-            
+
             # 2. Inferência (Polimorfismo: funciona para Dummy ou Real)
             # Retorna array shape (1, 2) -> [[prob_classe_0, prob_classe_1]]
             proba_array = self.model.predict_proba(X_input)
-            
+
             # Pega a probabilidade da classe positiva (1 = Churn)
             prob_churn = float(proba_array[0, 1])
-            
+
             # 3. Regra de Decisão (Thresholding)
             prediction = 1 if prob_churn >= self.threshold else 0
-            
+
             # 4. Explicabilidade (Opcional)
             # Se o modelo tiver método customizado top_features (como o Dummy), usa.
             # Se for um pipeline padrão sklearn, retorna lista vazia (ou implementar SHAP aqui)
@@ -99,11 +105,11 @@ class ModelWrapper:
             top_features = []
             if hasattr(self.model, "top_features"):
                 top_features = self.model.top_features(features, k=3)
-            
+
             return {
                 "probabilidade": round(prob_churn, 4),
                 "churn_prediction": prediction,
-                "top_features": top_features
+                "top_features": top_features,
             }
 
         except Exception as exc:
