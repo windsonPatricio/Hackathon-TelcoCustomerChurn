@@ -1,9 +1,7 @@
 package br.com.retermais.dtos;
 
 import br.com.retermais.model.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import tools.jackson.databind.PropertyNamingStrategies;
 import tools.jackson.databind.annotation.JsonNaming;
 
@@ -11,45 +9,51 @@ import java.math.BigDecimal;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record RequestDTO(
-        @NotBlank
-        @Pattern(regexp = "\\d{11}")
-        String idCliente,
-        @NotNull
+
+        @NotNull(message = "Gênero é obrigatório")
         Genero genero,
-        @NotNull
+        @NotNull(message = "O campo idoso é obrigatório (0 ou 1)")
+        @Min(0) @Max(1)
         Integer idoso,
-        @NotNull
+        @NotNull(message = "O campo parceiro é obrigatório (0 ou 1)")
+        @Min(0) @Max(1)
         Integer parceiro,
-        @NotNull
+        @NotNull(message = "O campo dependentes é obrigatório (0 ou 1)")
+        @Min(0) @Max(1)
         Integer dependentes,
-        @NotNull
+        @NotNull(message = "O tempo de contrato em meses é obrigatório")
+        @PositiveOrZero(message = "O tempo de contrato deve ser zero ou positivo")
         Integer tempoContratoMeses,
-        @NotNull
+        @NotNull(message = "Serviço de telefone é obrigatório (0 ou 1)")
+        @Min(0) @Max(1)
         Integer servicoTelefone,
-        @NotNull
+        @NotNull(message = "Linhas múltiplas é obrigatório")
         LinhasMultiplas linhasMultiplas,
-        @NotNull
+        @NotNull(message = "Tipo de internet é obrigatório")
         TipoInternet tipoInternet,
-        @NotNull
+        @NotNull(message = "Segurança online é obrigatório")
         SegurancaOnline segurancaOnline,
-        @NotNull
+        @NotNull(message = "Backup online é obrigatório")
         BackupOnline backupOnline,
-        @NotNull
+        @NotNull(message = "Proteção de dispositivo é obrigatório")
         ProtecaoDispositivo protecaoDispositivo,
-        @NotNull
+        @NotNull(message = "Suporte técnico é obrigatório")
         SuporteTecnico suporteTecnico,
-        @NotNull
+        @NotNull(message = "Streaming de TV é obrigatório")
         StreamingTv streamingTv,
-        @NotNull
+        @NotNull(message = "Streaming de filmes é obrigatório")
         StreamingFilmes streamingFilmes,
-        @NotNull
+        @NotNull(message = "Tipo de contrato é obrigatório")
         TipoContrato tipoContrato,
-        @NotNull
+        @NotNull(message = "Cobrança digital é obrigatório (0 ou 1)")
+        @Min(0) @Max(1)
         Integer cobrancaDigital,
-        @NotNull
+        @NotNull(message = "Método de pagamento é obrigatório")
         MetodoPagamento metodoPagamento,
-        @NotNull
+        @NotNull(message = "Cobrança mensal é obrigatória")
+        @DecimalMin(value = "0.0", message = "Cobrança mensal não pode ser negativa")
         BigDecimal cobrancaMensal,
-        @NotNull
+        @NotNull(message = "Cobrança total é obrigatória")
+        @DecimalMin(value = "0.0", message = "Cobrança total não pode ser negativa")
         BigDecimal cobrancaTotal) {
 }

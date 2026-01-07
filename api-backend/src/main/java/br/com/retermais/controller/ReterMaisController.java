@@ -1,7 +1,6 @@
 package br.com.retermais.controller;
 
 import br.com.retermais.dtos.RequestDTO;
-import br.com.retermais.dtos.RequestPythonDTO;
 import br.com.retermais.dtos.ResponsePythonDTO;
 import br.com.retermais.service.ReterMaisService;
 import jakarta.validation.Valid;
@@ -21,7 +20,7 @@ public class ReterMaisController {
         this.service = service;
     }
 
-    @PostMapping
+    @PostMapping("/prever")
     public ResponseEntity<ResponsePythonDTO> prever(@Valid @RequestBody RequestDTO request) {
         ResponsePythonDTO response = service.preverCancelamento(request);
         return ResponseEntity.ok(response);
