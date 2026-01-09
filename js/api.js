@@ -1,8 +1,9 @@
 const API_URL = "http://localhost:8080/reter/test";
 
+
 async function preverCancelamento() {
 
-    let payload = montarPayload()
+    let payload = montarPayloadPrevisao()
 
     try {
         const response = await axios.post(API_URL, payload);
@@ -16,7 +17,7 @@ async function preverCancelamento() {
     }
 }
 
-function montarPayload() {
+function montarPayloadPrevisao() {
 
     const payload = {
 
