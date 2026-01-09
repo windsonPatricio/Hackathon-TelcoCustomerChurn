@@ -1,4 +1,7 @@
 const API_URL = "http://localhost:8080/reter/test";
+import {navegar} from "./util.js"
+let ultimaPrevisao;
+
 
 
 async function preverCancelamento() {
@@ -7,6 +10,8 @@ async function preverCancelamento() {
 
     try {
         const response = await axios.post(API_URL, payload);
+        ultimaPrevisao = response.data;
+        criarTelaResposta();
     } catch (error) {
         console.log("Erro na requisição:" + error);
         if (error.response) {
@@ -15,6 +20,19 @@ async function preverCancelamento() {
             console.log("Erro de conexão. Verifique se o servidor está rodando.");
         }
     }
+
+}
+
+function criarTelaResposta() {
+    navegar('tela-resposta');
+    montarTelaResposta();
+}
+
+function montarTelaResposta() {
+    let lablePrevisao = document.getElementById('resposta-previsao');
+    let lableProbabilidade = document.getElementById('resposta-probabilidade');
+    lablePrevisao.textContent = "Previsão: "+ultimaPrevisao.previsao;
+    lableProbabilidade.textContent = "Probabilidade: "+ultimaPrevisao.probabilidade;
 }
 
 function montarPayloadPrevisao() {
@@ -44,3 +62,6 @@ function montarPayloadPrevisao() {
     };
     return payload;
 }
+
+window.preverCancelamento = preverCancelamento;
+window.navegar = navegar;

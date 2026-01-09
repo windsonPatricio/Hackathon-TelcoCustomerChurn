@@ -30,8 +30,9 @@
 
                     <div class="col-md-2">
                         <label for="idoso" class="form-label">Idoso</label>
-                        <select class="form-select" id="idoso" name="idoso">
-                            <option value="0" selected>Não</option>
+                        <select class="form-select" id="idoso" name="idoso" required>
+                            <option value= "" selected disabled hidden > Selecione...</option>
+                            <option value="0">Não</option>
                             <option value="1">Sim</option>
                         </select>
                     </div>
@@ -54,7 +55,7 @@
 
                     <div class="col-md-6">
                         <label for="tempo_contrato_meses" class="form-label">Tempo de Contrato (Meses)</label>
-                        <input type="number" class="form-control" id="tempo_contrato_meses" name="tempo_contrato_meses" value="12">
+                        <input type="number" class="form-control" id="tempo_contrato_meses" name="tempo_contrato_meses">
                     </div>
 
                     <div class="col-md-6">
@@ -192,7 +193,7 @@
                 </div>
 
                 <div class="mt-4 d-flex justify-content-end">
-                    <button type="submit" onclick="navegar('tela-resposta')" class="btn btn-primary btn-lg" >Realizar previsão</button>
+                    <button type="submit"  class="btn btn-primary btn-lg" >Realizar previsão</button>
                 </div>
 
             </form>
@@ -202,13 +203,12 @@
 </div>
 
 <div id="tela-resposta" class="tela collapse">
-    <label id="resposta-previsao">previsao</label>
-    <label id="resposta-probabilidade">probabilidade</label>
+    <label id="resposta-previsao">previsao</label><br>
+    <label id="resposta-probabilidade">probabilidade</label><br>
     <button onclick="navegar('tela-home')"></button>
-<!--    <p>Teste tela resposta</p>-->
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="./js/api.js"></script>
+<script type="module" src="./js/api.js"></script>
 <script>
     // seleciona o formulario e adiciona o evento
     document.querySelector('form').addEventListener('submit', async function(event) {
@@ -216,6 +216,6 @@
         await preverCancelamento();
     });
 </script>
-<script src="js/util.js"></script>
+<script type="module" src="js/util.js"></script>
 </body>
 </html>
