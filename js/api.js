@@ -1,11 +1,8 @@
-const API_URL = "http://localhost:8080/reter/test";
+const API_URL = "http://localhost:8080/reter/prever";
 import {navegar} from "./util.js"
 let ultimaPrevisao;
 
-
-
 async function preverCancelamento() {
-
     let payload = montarPayloadPrevisao()
 
     try {
@@ -20,16 +17,10 @@ async function preverCancelamento() {
             console.log("Erro de conexão. Verifique se o servidor está rodando.");
         }
     }
+    //todo retornar ao
+    // front um modal, ou alert, avisando da situação.
+    // Esses ifs tem que usar o codigo http
 
-}
-
-
-
-function criarTelaResposta() {
-    navegar('tela-resposta');
-    montarTelaResposta();
-    limparUltimaPrevisao();
-    //todo limparFormulario (para uma nova requisição depois de clicar o botão voltar
 }
 
 function montarTelaResposta() {
@@ -39,14 +30,30 @@ function montarTelaResposta() {
     lableProbabilidade.textContent = "Probabilidade: "+ultimaPrevisao.probabilidade;
 }
 
-function limparUltimaPrevisao(){
+function criarTelaResposta() {
+    navegar('tela-resposta');
+    montarTelaResposta();
+}
+
+function reiniciarApp(){
+    limparVariavelUltimaPrevisao();
+    limparFormulario();
+    navegar('tela-home')
+}
+
+function limparVariavelUltimaPrevisao(){
     ultimaPrevisao = null;
+}
+
+function limparFormulario(){
+    document.querySelector('form').reset();
 }
 
 function montarPayloadPrevisao() {
 
+    //todo o front end precisa de validão do tipo dos
+    // dados e validação para não enviar campo em branco. Como em IDOSO
     const payload = {
-
         genero: document.getElementById('genero').value,
         idoso: parseInt(document.getElementById('idoso').value),
         parceiro: parseInt(document.getElementById('parceiro').value),
@@ -73,3 +80,4 @@ function montarPayloadPrevisao() {
 
 window.preverCancelamento = preverCancelamento;
 window.navegar = navegar;
+window.reiniciarApp = reiniciarApp;
