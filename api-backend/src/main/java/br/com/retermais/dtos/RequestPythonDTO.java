@@ -1,9 +1,12 @@
 package br.com.retermais.dtos;
 
 import br.com.retermais.model.*;
+import tools.jackson.databind.PropertyNamingStrategies;
+import tools.jackson.databind.annotation.JsonNaming;
 
 import java.math.BigDecimal;
 
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record RequestPythonDTO(
         Genero genero,
         Integer idoso,

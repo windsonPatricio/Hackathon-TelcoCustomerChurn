@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/reter")
 public class ReterMaisController {
 
-    private final ReterMaisService reterMaisService;
+    private final ReterMaisService service;
 
-    public ReterMaisController(ReterMaisService reterMaisService) {
-        this.reterMaisService = reterMaisService;
+    public ReterMaisController(ReterMaisService service) {
+        this.service = service;
     }
 
     @PostMapping("/prever")
     public ResponseEntity<ResponsePythonDTO> prever(@Valid @RequestBody RequestDTO request) {
-        ResponsePythonDTO response = reterMaisService.preverCancelamento(request);
+        ResponsePythonDTO response = service.preverCancelamento(request);
         return ResponseEntity.ok(response);
     }
 }
