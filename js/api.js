@@ -23,9 +23,13 @@ async function preverCancelamento() {
 
 }
 
+
+
 function criarTelaResposta() {
     navegar('tela-resposta');
     montarTelaResposta();
+    limparUltimaPrevisao();
+    //todo limparFormulario (para uma nova requisição depois de clicar o botão voltar
 }
 
 function montarTelaResposta() {
@@ -33,6 +37,10 @@ function montarTelaResposta() {
     let lableProbabilidade = document.getElementById('resposta-probabilidade');
     lablePrevisao.textContent = "Previsão: "+ultimaPrevisao.previsao;
     lableProbabilidade.textContent = "Probabilidade: "+ultimaPrevisao.probabilidade;
+}
+
+function limparUltimaPrevisao(){
+    ultimaPrevisao = null;
 }
 
 function montarPayloadPrevisao() {
