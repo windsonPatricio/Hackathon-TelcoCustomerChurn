@@ -13,19 +13,23 @@ public record RequestDTO(
         @NotNull(message = "Gênero é obrigatório")
         Genero genero,
         @NotNull(message = "O campo idoso é obrigatório (0 ou 1)")
-        @Min(0) @Max(1)
+        @Min(value = 0, message = "O campo idoso deve ser 0 ou 1")
+        @Max(value = 1, message = "O campo idoso deve ser 0 ou 1")
         Integer idoso,
         @NotNull(message = "O campo parceiro é obrigatório (0 ou 1)")
-        @Min(0) @Max(1)
+        @Min(value = 0, message = "O campo parceiro deve ser 0 ou 1")
+        @Max(value = 1, message = "O campo parceiro deve ser 0 ou 1")
         Integer parceiro,
         @NotNull(message = "O campo dependentes é obrigatório (0 ou 1)")
-        @Min(0) @Max(1)
+        @Min(value = 0, message = "O campo dependentes deve ser 0 ou 1")
+        @Max(value = 1, message = "O campo dependentes deve ser 0 ou 1")
         Integer dependentes,
         @NotNull(message = "O tempo de contrato em meses é obrigatório")
         @PositiveOrZero(message = "O tempo de contrato deve ser zero ou positivo")
         Integer tempoContratoMeses,
         @NotNull(message = "Serviço de telefone é obrigatório (0 ou 1)")
-        @Min(0) @Max(1)
+        @Min(value = 0, message = "O campo Serviço de Telefone deve ser 0 ou 1")
+        @Max(value = 1, message = "O campo Serviço de Telefone deve ser 0 ou 1")
         Integer servicoTelefone,
         @NotNull(message = "Linhas múltiplas é obrigatório")
         LinhasMultiplas linhasMultiplas,
@@ -46,7 +50,8 @@ public record RequestDTO(
         @NotNull(message = "Tipo de contrato é obrigatório")
         TipoContrato tipoContrato,
         @NotNull(message = "Cobrança digital é obrigatório (0 ou 1)")
-        @Min(0) @Max(1)
+        @Min(value = 0, message = "O campo Cobrança Digital deve ser 0 ou 1")
+        @Max(value = 1, message = "O campo Cobrança Digital deve ser 0 ou 1")
         Integer cobrancaDigital,
         @NotNull(message = "Método de pagamento é obrigatório")
         MetodoPagamento metodoPagamento,
