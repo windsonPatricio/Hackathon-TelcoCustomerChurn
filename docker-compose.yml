@@ -1,11 +1,13 @@
 services:
-  # --- Serviço Python (Machine Learning) ---
-  # Esse JÁ VAI FUNCIONAR AGORA.
+  # ========================================
+  # Serviço Python (Machine Learning)
+  # =======================================
   ml-api:
     build:
       context: ./ml/model_api
       dockerfile: Dockerfile
     container_name: ml_api_container
+    # Depois mudar para "expose" "8000" para não expor o microserviço python fora do container
     ports:
       - "8000:8000"
     environment:
@@ -14,29 +16,38 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "python", "-c", "import urllib.request, sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health').getcode() == 200 else 1)"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 5s # Dá um tempinho extra para o boot frio do Python
 
-  # --- Serviço Java (Backend Spring) ---
-  # PREVISTO: Se der tempo de criar o Dockerfile no Java,
-  # ---------------------------------------------
-  # api-backend:
-  #   build:
-  #     context: ./api-backend
-  #     dockerfile: Dockerfile
-  #   container_name: backend_java_container
-  #   ports:
-  #     - "8080:8080"
-  #   environment:
-  #     - ML_API_URL=http://ml-api:8000
-  #   depends_on:
-  #     ml-api:
-  #       condition: service_healthy
-  #   networks:
-  #     - app-network
+  # ========================================
+  # Serviço Java (Backend Spring)
+  # ========================================
+  api-backend:
+    build:
+      context: ./api-backend
+      dockerfile: Dockerfile
+    container_name: backend_java_container
+    ports:
+      - "8080:8080"  # Expõe publicamente
+    environment: # Pode mudar para .env
+      - API_BASE_URL=http://ml-api:8000
+      - SPRING_PROFILES_ACTIVE=prod
+    depends_on: 
+      ml-api:
+        condition: service_healthy
+    networks:
+      - app-network
+
+    deploy:
+      resources: 
+        limits:
+          cpus:  '0.5'
+          memory: 500M
+        reservations:
+          memory: 300M
 
 # Rede interna
 networks:
