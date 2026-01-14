@@ -51,6 +51,8 @@ function limparFormulario(){
 
 function montarPayloadPrevisao() {
 
+
+
     //todo o front end precisa de validão do tipo dos
     // dados e validação para não enviar campo em branco. Como em IDOSO
     const payload = {
@@ -78,6 +80,38 @@ function montarPayloadPrevisao() {
     return payload;
 }
 
+
+async function verificaCampoVazioNoFormulario(){
+
+    console.log("Oi")
+    let formularioValido = true;
+
+    const form = document.querySelector('form');
+    const campos = form.querySelectorAll('input, select');
+
+    campos.forEach(function (campo){
+
+        if(!campo.value || campo.value.trim() === ""){
+            formularioValido = false;
+            campo.classList.add("is-invalid");
+        }else {
+            campo.classList.remove("is-invalid");
+        }
+
+    })
+
+    if (formularioValido){
+        //atencao a esse await
+        await preverCancelamento();
+    }
+}
+
+
+
 window.preverCancelamento = preverCancelamento;
 window.navegar = navegar;
 window.reiniciarApp = reiniciarApp;
+
+
+
+window.verificaCampoVazioNoFormulario = verificaCampoVazioNoFormulario;

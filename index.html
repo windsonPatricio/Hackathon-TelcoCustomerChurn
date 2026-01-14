@@ -22,8 +22,9 @@
                 <div class="row g-3">
                     <div class="col-md-4">
                         <label for="genero" class="form-label">Gênero</label>
-                        <select class="form-select" id="genero" name="genero">
-                            <option value="homem" selected>Homem</option>
+                        <select class="form-select" id="genero" name="genero" required>
+                            <option value= "" selected disabled hidden > Selecione...</option>
+                            <option value="homem">Homem</option>
                             <option value="mulher">Mulher</option>
                         </select>
                     </div>
@@ -39,9 +40,10 @@
 
                     <div class="col-md-3">
                         <label for="parceiro" class="form-label">Parceiro</label>
-                        <select class="form-select" id="parceiro" name="parceiro">
+                        <select class="form-select" id="parceiro" name="parceiro" required>
+                            <option value= "" selected disabled hidden > Selecione...</option>
                             <option value="0">Não</option>
-                            <option value="1" selected>Sim</option>
+                            <option value="1" >Sim</option>
                         </select>
                     </div>
 
@@ -193,7 +195,9 @@
                 </div>
 
                 <div class="mt-4 d-flex justify-content-end">
-                    <button type="submit"  class="btn btn-primary btn-lg" >Realizar previsão</button>
+                    <button type="button"  class="btn btn-primary btn-lg" id="btn-realizar-previsao"
+                             data-bs-toggle="modal" data-bs-target="#centeredModal"
+                    onclick="verificaCampoVazioNoFormulario()" >Realizar previsão</button>
                 </div>
 
             </form>
@@ -203,19 +207,39 @@
 </div>
 
 <div id="tela-resposta" class="tela collapse">
-    <label id="resposta-previsao">previsao</label><br>
-    <label id="resposta-probabilidade">probabilidade</label><br>
-    <button class="btn btn-secondary" onclick="reiniciarApp()">Nova Previsão</button>
+
+    <div class="modal fade" id="centeredModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Previsão de cancelamento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<!--                    <p>This modal is vertically centered on the screen.</p>-->
+                    <label id="resposta-previsao">previsao</label><br>
+                    <label id="resposta-probabilidade">probabilidade</label><br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal" onclick="reiniciarApp()" >Nova Previsão</button>
+                    <button type="button" class="btn btn-primary"
+                            data-bs-dismiss="modal" onclick="reiniciarApp()" >Salvar previsão</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="./js/api.js"></script>
-<script>
-    // seleciona o formulario e adiciona o evento
-    document.querySelector('form').addEventListener('submit', async function(event) {
-        event.preventDefault(); // impede o formulário de recarregar a pagina
-        await preverCancelamento();
-    });
-</script>
+<!--<script>-->
+<!--    // seleciona o formulario e adiciona o evento-->
+<!--    document.querySelector('form').addEventListener('submit', async function(event) {-->
+<!--        event.preventDefault(); // impede o formulário de recarregar a pagina-->
+<!--        await verificaCampoVazioNoFormulario();-->
+<!--    });-->
+<!--</script>-->
 <script type="module" src="js/util.js"></script>
 </body>
 </html>
