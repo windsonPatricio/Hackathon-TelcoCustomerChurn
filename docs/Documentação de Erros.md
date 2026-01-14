@@ -1,3 +1,4 @@
+# Documentação de Erros na API
 
 Esta API segue um padrão consistente para tratamento de erros, diferenciando **erros de validação**, **erros de integração** e **erros internos**, garantindo previsibilidade para o front-end e robustez na integração com serviços externos (FastAPI).
 
@@ -40,11 +41,10 @@ Erro de validação ou JSON inválido.
 [
     {
         "campo": "email",
-        "mensagem": "não deve estar em branco
+        "mensagem": "não deve estar em branco"
     }
 ]
 ```
-
 
 ### 502 — Bad Gateway
 
