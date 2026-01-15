@@ -1,15 +1,22 @@
 const API_URL = "http://localhost:8080/reter/prever";
 import {navegar} from "./util.js"
+
 let ultimaPrevisao;
 
 async function preverCancelamento() {
     let payload = montarPayloadPrevisao()
+    const modalDeCarregamento = apresentarModalDeCarregamento();
+    const modalResposta = apresentarModalDeResposta();
+    payload.idoso = null;
 
     try {
         const response = await axios.post(API_URL, payload);
         ultimaPrevisao = response.data;
-        criarTelaResposta();
+        modalDeCarregamento.hide();
+        criarTelaResposta(modalResposta);
     } catch (error) {
+        modalDeCarregamento.hide();
+        apresentarModalDeErro(modalResposta)
         console.log("Erro na requisição:" + error);
         if (error.response) {
             console.log("Erro no servidor: " + error.response.status);
@@ -26,33 +33,32 @@ async function preverCancelamento() {
 function montarTelaResposta() {
     let lablePrevisao = document.getElementById('resposta-previsao');
     let lableProbabilidade = document.getElementById('resposta-probabilidade');
-    lablePrevisao.textContent = "Previsão: "+ultimaPrevisao.previsao;
-    lableProbabilidade.textContent = "Probabilidade: "+ultimaPrevisao.probabilidade;
+    lablePrevisao.textContent = "Previsão: " + ultimaPrevisao.previsao;
+    lableProbabilidade.textContent = "Probabilidade: " + ultimaPrevisao.probabilidade;
 }
 
-function criarTelaResposta() {
-    navegar('tela-resposta');
+function criarTelaResposta(modalResposta) {
+    navegar('tela-resposta'); // tira a class collapse do elemento pai modalResposta
     montarTelaResposta();
+    // const modalResposta = apresentarModalDeResposta();
+    modalResposta.show();
 }
 
-function reiniciarApp(){
+function reiniciarApp() {
     limparVariavelUltimaPrevisao();
     limparFormulario();
     navegar('tela-home')
 }
 
-function limparVariavelUltimaPrevisao(){
+function limparVariavelUltimaPrevisao() {
     ultimaPrevisao = null;
 }
 
-function limparFormulario(){
+function limparFormulario() {
     document.querySelector('form').reset();
 }
 
 function montarPayloadPrevisao() {
-
-
-
     //todo o front end precisa de validão do tipo dos
     // dados e validação para não enviar campo em branco. Como em IDOSO
     const payload = {
@@ -81,37 +87,52 @@ function montarPayloadPrevisao() {
 }
 
 
-async function verificaCampoVazioNoFormulario(){
-
-    console.log("Oi")
+async function verificaCampoVazioNoFormulario() {
     let formularioValido = true;
-
     const form = document.querySelector('form');
     const campos = form.querySelectorAll('input, select');
 
-    campos.forEach(function (campo){
-
-        if(!campo.value || campo.value.trim() === ""){
+    campos.forEach(function (campo) {
+        if (!campo.value || campo.value.trim() === "") {
             formularioValido = false;
             campo.classList.add("is-invalid");
-        }else {
+        } else {
             campo.classList.remove("is-invalid");
         }
 
     })
-
-    if (formularioValido){
+    if (formularioValido) {
         //atencao a esse await
         await preverCancelamento();
     }
 }
 
+function apresentarModalDeCarregamento() {
+    const modalElement = document.getElementById('modalCarregamento');
+    const modalLoading = new bootstrap.Modal(modalElement);
+    modalLoading.show();
+    return modalLoading;
+}
+
+function apresentarModalDeResposta(){
+    const modalElement = document.getElementById('centeredModal');
+    const modalResposta = new bootstrap.Modal(modalElement);
+    // modalResposta.show();
+    return modalResposta;
+}
+
+function apresentarModalDeErro(modalResposta){
+    let lablePrevisao = document.getElementById('resposta-previsao');
+    let lableProbabilidade = document.getElementById('resposta-probabilidade');
+    lablePrevisao.textContent = "Previsão: Erro ";
+    lableProbabilidade.textContent = "Probabilidade: Erro ";
+    modalResposta.show();
+}
 
 
 window.preverCancelamento = preverCancelamento;
 window.navegar = navegar;
 window.reiniciarApp = reiniciarApp;
-
 
 
 window.verificaCampoVazioNoFormulario = verificaCampoVazioNoFormulario;
