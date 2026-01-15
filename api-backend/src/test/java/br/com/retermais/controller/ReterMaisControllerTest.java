@@ -96,7 +96,7 @@ public class ReterMaisControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonLimiteInvalido))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$[0].mensagem").value("O campo idoso deve ser 0 ou 1"));
+                .andExpect(jsonPath("$[0].mensagem").value("O campo deve ser 0 ou 1"));
     }
 
     @Test
