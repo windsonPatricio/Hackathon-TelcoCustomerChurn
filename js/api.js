@@ -6,7 +6,7 @@ let ultimaPrevisao;
 async function preverCancelamento() {
     let payload = montarPayloadPrevisao()
     const modalDeCarregamento = apresentarModalDeCarregamento();
-    const modalResposta = apresentarModalDeResposta();
+    const modalResposta = criarModalDeResposta();
     payload.idoso = null;
 
     try {
@@ -15,8 +15,10 @@ async function preverCancelamento() {
         modalDeCarregamento.hide();
         criarTelaResposta(modalResposta);
     } catch (error) {
+        setTimeout(()=>{
         modalDeCarregamento.hide();
         apresentarModalDeErro(modalResposta)
+        }, 500)
         console.log("Erro na requisição:" + error);
         if (error.response) {
             console.log("Erro no servidor: " + error.response.status);
@@ -40,7 +42,7 @@ function montarTelaResposta() {
 function criarTelaResposta(modalResposta) {
     navegar('tela-resposta'); // tira a class collapse do elemento pai modalResposta
     montarTelaResposta();
-    // const modalResposta = apresentarModalDeResposta();
+    // const modalResposta = criarModalDeResposta();
     modalResposta.show();
 }
 
@@ -114,7 +116,7 @@ function apresentarModalDeCarregamento() {
     return modalLoading;
 }
 
-function apresentarModalDeResposta(){
+function criarModalDeResposta(){
     const modalElement = document.getElementById('centeredModal');
     const modalResposta = new bootstrap.Modal(modalElement);
     // modalResposta.show();
@@ -122,6 +124,7 @@ function apresentarModalDeResposta(){
 }
 
 function apresentarModalDeErro(modalResposta){
+    navegar('tela-resposta');
     let lablePrevisao = document.getElementById('resposta-previsao');
     let lableProbabilidade = document.getElementById('resposta-probabilidade');
     lablePrevisao.textContent = "Previsão: Erro ";
