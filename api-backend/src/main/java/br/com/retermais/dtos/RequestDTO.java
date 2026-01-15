@@ -1,64 +1,98 @@
 package br.com.retermais.dtos;
 
 import br.com.retermais.model.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
-import tools.jackson.databind.PropertyNamingStrategies;
-import tools.jackson.databind.annotation.JsonNaming;
 
 import java.math.BigDecimal;
 
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record RequestDTO(
-
-        @NotNull(message = "Gênero é obrigatório")
+        @NotNull(message = "{genero.notnull}")
+        @JsonProperty("genero")
         Genero genero,
-        @NotNull(message = "O campo idoso é obrigatório (0 ou 1)")
-        @Min(value = 0, message = "O campo idoso deve ser 0 ou 1")
-        @Max(value = 1, message = "O campo idoso deve ser 0 ou 1")
+
+        @NotNull(message = "{idoso.notnull}")
+        @Min(value = 0, message = "{boolean.01}")
+        @Max(value = 1, message = "{boolean.01}")
+        @JsonProperty("idoso")
         Integer idoso,
-        @NotNull(message = "O campo parceiro é obrigatório (0 ou 1)")
-        @Min(value = 0, message = "O campo parceiro deve ser 0 ou 1")
-        @Max(value = 1, message = "O campo parceiro deve ser 0 ou 1")
+
+        @NotNull(message = "{parceiro.notnull}")
+        @Min(value = 0, message = "{boolean.01}")
+        @Max(value = 1, message = "{boolean.01}")
+        @JsonProperty("parceiro")
         Integer parceiro,
-        @NotNull(message = "O campo dependentes é obrigatório (0 ou 1)")
-        @Min(value = 0, message = "O campo dependentes deve ser 0 ou 1")
-        @Max(value = 1, message = "O campo dependentes deve ser 0 ou 1")
+
+        @NotNull(message = "{dependentes.notnull}")
+        @Min(value = 0, message = "{boolean.01}")
+        @Max(value = 1, message = "{boolean.01}")
+        @JsonProperty("dependentes")
         Integer dependentes,
-        @NotNull(message = "O tempo de contrato em meses é obrigatório")
-        @PositiveOrZero(message = "O tempo de contrato deve ser zero ou positivo")
+
+        @NotNull(message = "{tempo_contrato_meses.notnull}")
+        @PositiveOrZero(message = "{positivo.zero}")
+        @JsonProperty("tempo_contrato_meses")
         Integer tempoContratoMeses,
-        @NotNull(message = "Serviço de telefone é obrigatório (0 ou 1)")
-        @Min(value = 0, message = "O campo Serviço de Telefone deve ser 0 ou 1")
-        @Max(value = 1, message = "O campo Serviço de Telefone deve ser 0 ou 1")
+
+        @NotNull(message = "{servico_telefone.notnull}")
+        @Min(value = 0, message = "{boolean.01}")
+        @Max(value = 1, message = "{boolean.01}")
+        @JsonProperty("servico_telefone")
         Integer servicoTelefone,
-        @NotNull(message = "Linhas múltiplas é obrigatório")
+
+        @NotNull(message = "{linhas_multiplas.notnull}")
+        @JsonProperty("linhas_multiplas")
         LinhasMultiplas linhasMultiplas,
-        @NotNull(message = "Tipo de internet é obrigatório")
+
+        @NotNull(message = "{tipo_internet.notnull}")
+        @JsonProperty("tipo_internet")
         TipoInternet tipoInternet,
-        @NotNull(message = "Segurança online é obrigatório")
+
+        @NotNull(message = "{seguranca_online.notnull}")
+        @JsonProperty("seguranca_online")
         SegurancaOnline segurancaOnline,
-        @NotNull(message = "Backup online é obrigatório")
+
+        @NotNull(message = "{backup_online.notnull}")
+        @JsonProperty("backup_online")
         BackupOnline backupOnline,
-        @NotNull(message = "Proteção de dispositivo é obrigatório")
+
+        @NotNull(message = "{protecao_dispositivo.notnull}")
+        @JsonProperty("protecao_dispositivo")
         ProtecaoDispositivo protecaoDispositivo,
-        @NotNull(message = "Suporte técnico é obrigatório")
+
+        @NotNull(message = "{suporte_tecnico.notnull}")
+        @JsonProperty("suporte_tecnico")
         SuporteTecnico suporteTecnico,
-        @NotNull(message = "Streaming de TV é obrigatório")
+
+        @NotNull(message = "{streaming_tv.notnull}")
+        @JsonProperty("streaming_tv")
         StreamingTv streamingTv,
-        @NotNull(message = "Streaming de filmes é obrigatório")
+
+        @NotNull(message = "{streaming_filmes.notnull}")
+        @JsonProperty("streaming_filmes")
         StreamingFilmes streamingFilmes,
-        @NotNull(message = "Tipo de contrato é obrigatório")
+
+        @NotNull(message = "{tipo_contrato.notnull}")
+        @JsonProperty("tipo_contrato")
         TipoContrato tipoContrato,
-        @NotNull(message = "Cobrança digital é obrigatório (0 ou 1)")
-        @Min(value = 0, message = "O campo Cobrança Digital deve ser 0 ou 1")
-        @Max(value = 1, message = "O campo Cobrança Digital deve ser 0 ou 1")
+
+        @NotNull(message = "{cobranca_digital.notnull}")
+        @Min(value = 0, message = "{boolean.01}")
+        @Max(value = 1, message = "{boolean.01}")
+        @JsonProperty("cobranca_digital")
         Integer cobrancaDigital,
-        @NotNull(message = "Método de pagamento é obrigatório")
+
+        @NotNull(message = "{metodo_pagamento.notnull}")
+        @JsonProperty("metodo_pagamento")
         MetodoPagamento metodoPagamento,
-        @NotNull(message = "Cobrança mensal é obrigatória")
-        @DecimalMin(value = "0.0", message = "Cobrança mensal não pode ser negativa")
+
+        @NotNull(message = "{cobranca_mensal.notnull}")
+        @DecimalMin(value = "0.0", message = "{nao.negativo}")
+        @JsonProperty("cobranca_mensal")
         BigDecimal cobrancaMensal,
-        @NotNull(message = "Cobrança total é obrigatória")
-        @DecimalMin(value = "0.0", message = "Cobrança total não pode ser negativa")
+
+        @NotNull(message = "{cobranca_total.notnull}")
+        @DecimalMin(value = "0.0", message = "{nao.negativo}")
+        @JsonProperty("cobranca_total")
         BigDecimal cobrancaTotal) {
 }
