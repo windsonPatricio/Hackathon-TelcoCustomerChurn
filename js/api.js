@@ -7,13 +7,15 @@ async function preverCancelamento() {
     let payload = montarPayloadPrevisao()
     const modalDeCarregamento = apresentarModalDeCarregamento();
     const modalResposta = criarModalDeResposta();
-    payload.idoso = null;
+    // payload.idoso = null;
 
     try {
         const response = await axios.post(API_URL, payload);
         ultimaPrevisao = response.data;
-        modalDeCarregamento.hide();
-        criarTelaResposta(modalResposta);
+        setTimeout(()=>{
+            modalDeCarregamento.hide();
+            criarTelaResposta(modalResposta);
+        }, 500)
     } catch (error) {
         setTimeout(()=>{
         modalDeCarregamento.hide();
