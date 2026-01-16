@@ -8,7 +8,7 @@ Esta API segue um padrão consistente para tratamento de erros, diferenciando **
 
 ```json
 {
-"erro": "Mensagem descritiva do erro" 
+  "erro": "Mensagem descritiva do erro" 
 }
 ```
 
@@ -16,10 +16,10 @@ Esta API segue um padrão consistente para tratamento de erros, diferenciando **
 
 ```json
 [
-    {
-        "campo": "nomeDoCampo",
-        "mensagem": "Descrição do erro"
-    }
+  {
+    "campo": "nomeDoCampo",
+    "mensagem": "Descrição do erro"
+  }
 ]
 ```
 
@@ -39,10 +39,21 @@ Erro de validação ou JSON inválido.
 
 ```json
 [
-    {
-        "campo": "email",
-        "mensagem": "não deve estar em branco"
-    }
+  {
+    "campo": "idoso",
+    "mensagem": "O campo idoso é obrigatório (0 ou 1)"
+  }
+]
+```
+
+ou
+
+```json
+[
+  {
+    "campo": "idoso",
+    "mensagem": "O campo deve ser 0 ou 1"
+  }
 ]
 ```
 
@@ -65,7 +76,7 @@ Este status pode representar **dois cenários distintos**, tratados separadament
 
 ```json
 {
-    "erro": "Falha na comunicação ou contrato inválido com a API externa."
+  "erro": "Falha na comunicação ou contrato inválido com a API externa."
 }
 ```
 #### 2. Resposta inválida da FastAPI (`RespostaInvalidaException`)
@@ -80,8 +91,8 @@ Este status pode representar **dois cenários distintos**, tratados separadament
 
 ```json
 {
-    "previsao": null,
-    "probabilidade": 0.81
+  "previsao": null,
+  "probabilidade": 0.81
 }
 ```
 
@@ -89,7 +100,7 @@ Este status pode representar **dois cenários distintos**, tratados separadament
 
 ```json
 {
-    "erro": "Resposta inválida retornada pela API externa"
+  "erro": "JSON inválido ou incompatível com o contrato da API."
 }
 ```
 
@@ -111,7 +122,7 @@ FastAPI indisponível.
 
 ```json
 {
-    "erro": "O serviço FastAPI está indisponível no momento."
+  "erro": "O serviço FastAPI está indisponível no momento."
 }
 ```
 
@@ -130,6 +141,6 @@ Erro inesperado.
 
 ```json
 {
-    "erro": "Erro interno inesperado."
+  "erro": "Erro interno inesperado."
 }
 ```
