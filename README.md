@@ -1,10 +1,23 @@
-# Reter+ – Previsão Inteligente de Cancelamento (Churn)
+<div align="center">
+    <img src="resources/branding/logo-fundo-claro.png" height="168"/>
+    <h2>Previsão Inteligente de Cancelamento (Churn)</h2>
+</div>
 
-![Java](https://img.shields.io/badge/Java-21-orange)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.3-green)
-![Python](https://img.shields.io/badge/Python-3.11-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.128-009688)
-![Docker](https://img.shields.io/badge/Docker-Compose-2496ED)
+<div align="center">
+  <img src="https://img.shields.io/badge/Java-1DB980?style=for-the-badge&logo=openjdk&logoColor=white" height="30"/>&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/Spring_Boot-1DB980?style=for-the-badge&logo=spring&logoColor=white" height="30"/>&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/Python-1DB980?style=for-the-badge&logo=python&logoColor=white" height="30"/>&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/FastAPI-1DB980?style=for-the-badge&logo=fastapi&logoColor=white" height="30"/>&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/Docker-1DB980?style=for-the-badge&logo=docker&logoColor=white" height="30"/>
+</div>
+
+<div align="center">
+  <img src="https://img.shields.io/static/v1?label=JAVA&message=21&color=2EE6A0&labelColor=2EE6A0&style=for-the-badge&logo=openjdk&logoColor=white" height="30"/>&nbsp;&nbsp;
+  <img src="https://img.shields.io/static/v1?label=SPRING%20BOOT&message=4.0&color=2EE6A0&labelColor=2EE6A0&style=for-the-badge&logo=spring&logoColor=121826" height="30"/>&nbsp;&nbsp;
+  <img src="https://img.shields.io/static/v1?label=PYTHON&message=3.11&color=2EE6A0&labelColor=2EE6A0&style=for-the-badge&logo=python&logoColor=121826" height="30"/>&nbsp;&nbsp;
+  <img src="https://img.shields.io/static/v1?label=FASTAPI&message=0.128&color=2EE6A0&labelColor=2EE6A0&style=for-the-badge&logo=fastapi&logoColor=121826" height="30"/>&nbsp;&nbsp;
+  <img src="https://img.shields.io/static/v1?label=DOCKER&message=COMPOSE&color=2EE6A0&labelColor=2EE6A0&style=for-the-badge&logo=docker&logoColor=121826" height="30"/>
+</div>
 
 ## O Desafio: A Retenção Reativa
 
