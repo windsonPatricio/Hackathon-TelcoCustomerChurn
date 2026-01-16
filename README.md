@@ -11,14 +11,6 @@
   <img src="https://img.shields.io/badge/Docker-1DB980?style=for-the-badge&logo=docker&logoColor=white" height="30"/>
 </div>
 
-<div align="center">
-  <img src="https://img.shields.io/static/v1?label=JAVA&message=21&color=2EE6A0&labelColor=2EE6A0&style=for-the-badge&logo=openjdk&logoColor=white" height="30"/>&nbsp;&nbsp;
-  <img src="https://img.shields.io/static/v1?label=SPRING%20BOOT&message=4.0&color=2EE6A0&labelColor=2EE6A0&style=for-the-badge&logo=spring&logoColor=121826" height="30"/>&nbsp;&nbsp;
-  <img src="https://img.shields.io/static/v1?label=PYTHON&message=3.11&color=2EE6A0&labelColor=2EE6A0&style=for-the-badge&logo=python&logoColor=121826" height="30"/>&nbsp;&nbsp;
-  <img src="https://img.shields.io/static/v1?label=FASTAPI&message=0.128&color=2EE6A0&labelColor=2EE6A0&style=for-the-badge&logo=fastapi&logoColor=121826" height="30"/>&nbsp;&nbsp;
-  <img src="https://img.shields.io/static/v1?label=DOCKER&message=COMPOSE&color=2EE6A0&labelColor=2EE6A0&style=for-the-badge&logo=docker&logoColor=121826" height="30"/>
-</div>
-
 ## O Desafio: A Retenção Reativa
 
 No setor de Telecomunicações, a maioria das ações de retenção ocorre tarde demais: apenas quando o cliente entra em contato para cancelar. Essa abordagem reativa gera custos operacionais elevados e baixa taxa de reversão. O verdadeiro problema não é a saída do cliente, mas a incapacidade de identificar **sinais silenciosos de insatisfação** antes que a decisão de cancelamento seja tomada.
