@@ -79,6 +79,7 @@ Este status pode representar **dois cenários distintos**, tratados separadament
   "erro": "Falha na comunicação ou contrato inválido com a API externa."
 }
 ```
+
 #### 2. Resposta inválida da FastAPI (`RespostaInvalidaException`)
 
 ##### Quando ocorre
@@ -107,8 +108,6 @@ Este status pode representar **dois cenários distintos**, tratados separadament
 >**Observação**  
     Qualquer resposta com campos obrigatórios `null` é considerada **contrato inválido** e rejeitada integralmente.
 
----
-
 ### 503 — Service Unavailable
 
 FastAPI indisponível.
@@ -125,8 +124,6 @@ FastAPI indisponível.
   "erro": "O serviço FastAPI está indisponível no momento."
 }
 ```
-
----
 
 ### 500 — Internal Server Error
 
