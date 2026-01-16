@@ -15,6 +15,7 @@ Este projeto caracteriza-se como uma solução voltada à previsão de cancelame
 * **Spring Boot Starter Web:** (MVC e Tomcat)
 * **Spring Boot Starter Validation:** (Bean Validation / Hibernate Validator)
 * **Spring Boot DevTools:** (Hot reload)
+* **Spring Swagger:** (Documentação de API)
 
 ## Endpoints
 
