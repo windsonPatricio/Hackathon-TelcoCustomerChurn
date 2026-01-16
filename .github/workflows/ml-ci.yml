@@ -51,6 +51,16 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen --all-extras --dev
 
+      # Verifica qualidade (bugs, imports não usados)
+      - name: Lint Code (Ruff)
+        run: uv run ruff check --output-format=github .
+
+      # Verifica estilo (formatação, espaços)
+      # --check garante que ele só avise, não tente mudar arquivos no CI
+      - name: Check Formatting (Ruff)
+        run: uv run ruff format --check .
+
+        
       # 4. Roda os testes
       - name: Run Tests
         run: uv run pytest tests -v
