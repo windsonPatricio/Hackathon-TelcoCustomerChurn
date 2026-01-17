@@ -1,4 +1,3 @@
-
 # Teste de Health Check
 def test_health_check(client):
     response = client.get("/health")
