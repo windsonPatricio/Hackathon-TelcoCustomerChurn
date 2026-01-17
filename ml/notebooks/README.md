@@ -26,6 +26,8 @@ O projeto visa identificar padrões de cancelamento de clientes e criar modelos 
 ├── 02_churn_modeling.ipynb  # Modelagem Preditiva e Avaliação
 ├── pyproject.toml           # Definição do projeto e dependências
 └── uv.lock                  # Arquivo de travamento de versões (lockfile)
+└── .python-version          # Versão do Python utilizada
+└── README.md                  # Documentação do projeto
 
 ```
 
@@ -47,6 +49,7 @@ Focado no treinamento e validação dos algoritmos:
 * **Input:** Carregamento otimizado dos dados processados via PyArrow.
 * **Modelos:** Treinamento com XGBoost, LightGBM e modelos nativos do Scikit-learn.
 * **Validação:** Estratégias de validação cruzada e análise de métricas de classificação.
+*  **Serialização:** Salvamento do pipeline final para implantação futura.
 
 ---
 
@@ -60,7 +63,7 @@ As versões foram definidas para garantir reprodutibilidade e performance (confo
 | Categoria | Biblioteca | Versão Mínima |
 | --- | --- | --- |
 | **ML & Boosting** | LightGBM, XGBoost, Scikit-learn | 4.6+, 3.1+, 1.8+ |
-| **Manipulação** | Pandas, Numpy, PyArrow | 2.3+, 2.4+, 22.0+ |
+| **Manipulação** | Pandas, Numpy, PyArrow | 2.3+, 2.3, 22.0+ |
 | **Visualização** | Matplotlib, Seaborn | 3.10+, 0.13+ |
 | **Estatística** | Statsmodels | 0.14+ |
 
