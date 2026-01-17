@@ -1,5 +1,5 @@
 from enum import StrEnum
-from typing import Annotated, Optional, Any
+from typing import Annotated, Any
 from pydantic import BaseModel, Field, ConfigDict
 
 # Tipos reutilizáveis
