@@ -7,7 +7,7 @@ requires-python = ">=3.11"
 dependencies = [
     "fastapi[standard]>=0.128.0",
     "joblib>=1.5.3",
-    "numpy>=2.4.0",
+    "numpy<2.3",
     "pandas>=2.3.3",
     "pandas-stubs>=2.3.3.251201",
     "python-dotenv>=1.2.1",
@@ -18,4 +18,5 @@ dependencies = [
 dev = [
     "pytest>=9.0.2",
     "pytest-mock>=3.15.1",
+    "ruff>=0.14.13",
 ]

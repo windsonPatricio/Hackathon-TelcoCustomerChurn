@@ -3,21 +3,23 @@ name: ML Model API CI
 on:
   push:
     branches:
-      - dev               # Branch principal de integração
-      - 'ml/**'           # Cobre: ml/feature-*, ml/fix-*, ml/chore-* (Conforme Seção 2 do Guia de Branches)
-      - 'integration/**'  # Cobre: integration/model-api-v1 (Conforme Seção 5.1 do Guia)
+      - dev # Roda apenas quando o código já foi mergeado na dev
     paths:
-      - 'ml/model_api/**' # Segurança extra: só roda se arquivos desta pasta mudarem
-  
+      - 'ml/model_api/**'
   pull_request:
     branches:
-      - dev
+      - dev # Roda para validar qualquer branch tentando entrar na dev
     paths:
       - 'ml/model_api/**'
 
+# Controla concorrência para evitar execuções duplicadas em pushes rápidos
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test-model-api:
-    name: Run Tests and Lint
+  qa-checks:
+    name: QA Checks
     runs-on: ubuntu-latest
     
     # Define o diretório padrão para comandos de terminal (run)
@@ -34,8 +36,6 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          # Actions não respeitam o 'defaults.run.working-directory'.
-          # Precisamos passar o caminho completo desde a raiz do repo.
           python-version-file: "ml/model_api/.python-version"
 
       # 2. Instala o UV (versão pinada) e habilita cache de dependências
@@ -51,6 +51,43 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen --all-extras --dev
 
+      # Verifica qualidade (bugs, imports não usados)
+      - name: Lint Code (Ruff)
+        run: uv run ruff check --output-format=github .
+
+      # Verifica estilo (formatação, espaços)
+      # --check garante que ele só avise, não tente mudar arquivos no CI
+      - name: Check Formatting (Ruff)
+        run: uv run ruff format --check .
+
+        
       # 4. Roda os testes
       - name: Run Tests
         run: uv run pytest tests -v
+        
+# Job para checar se a imagem Docker builda corretamente
+  docker-build-check:
+    name: Dry Run Docker Build
+    needs: qa-checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Configura o Buildx (necessário para cache avançado)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Builda usando cache do GitHub Actions
+      - name: Build Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          # Define o contexto do build (onde está o Dockerfile)
+          context: ./ml/model_api
+          file: ./ml/model_api/Dockerfile
+          push: false # Apenas valida o build, não sobe para registry
+          tags: model-api:test
+          # Configuração de Cache
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

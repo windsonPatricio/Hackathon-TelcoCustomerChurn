@@ -24,7 +24,7 @@ O serviço recebe os dados cadastrais e de uso do cliente e retorna a probabilid
 ### Pré-requisitos
 
 * Python 3.11+
-* uv (Gerenciador de pacotes)
+* astral uv (Gerenciador de pacotes)
 * Docker (Opcional)
 
 ### 1. Desenvolvimento Local (com uv)

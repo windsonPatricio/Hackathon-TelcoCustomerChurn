@@ -2,9 +2,7 @@ import logging
 from pathlib import Path
 from typing import Any, Optional
 import pandas as pd
-import numpy as np
 from joblib import load
-
 from config import MODEL_PATH, CHURN_THRESHOLD, ALLOW_MODEL_FALLBACK
 from model_stub import DummyModel
 
@@ -64,7 +62,7 @@ class ModelWrapper:
 
         # Cenário de Fallback Permitido
         logger.warning(
-            f"MODELO NÃO ENCONTRADO. Iniciando em modo FALLBACK (DummyModel)."
+            "MODELO NÃO ENCONTRADO. Iniciando em modo FALLBACK (DummyModel)."
         )
         self.is_dummy = True
         self.model_version = "dummy_stub_v1"

@@ -103,7 +103,7 @@ def predict(payload: PredictRequest, model: ModelWrapper = Depends(get_model)):
     except RuntimeError as rt:
         logger.error(f"Erro de inferência: {rt}")
         raise HTTPException(status_code=500, detail=str(rt))
-    except Exception as exc:
+    except Exception:
         logger.exception("Erro não tratado no endpoint /predict")
         raise HTTPException(
             status_code=500, detail="Erro interno ao processar predição."
