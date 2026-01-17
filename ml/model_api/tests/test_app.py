@@ -1,6 +1,3 @@
-import pytest
-from fastapi.testclient import TestClient
-
 
 # Teste de Health Check
 def test_health_check(client):
