@@ -61,9 +61,9 @@ As versões foram definidas para garantir reprodutibilidade e performance (confo
 * **Gerenciador de Pacotes:** uv
 
 | Categoria | Biblioteca | Versão Mínima |
-****| --- | --- | --- |
+| --- | --- | --- |
 | **ML & Boosting** | LightGBM, XGBoost, Scikit-learn | 4.6+, 3.1+, 1.8+ |
-| **Manipulação** | Pandas, Numpy, PyArrow | 2.3+, 2.**3**, 22.0+ |
+| **Manipulação** | Pandas, Numpy, PyArrow | 2.3+, 2.3, 22.0+ |
 | **Visualização** | Matplotlib, Seaborn | 3.10+, 0.13+ |
 | **Estatística** | Statsmodels | 0.14+ |
 
