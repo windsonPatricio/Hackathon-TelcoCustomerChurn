@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ReterMais - Formulário de Cliente</title>
+        <link href="css/main.css" rel="stylesheet" />
+        <link rel="icon" href="assets/favicon.png" type="image/svg" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script type="module" src="./js/script.js"></script>
+    </head>
+    <body class="grid">
+        <main class="content">
+            <section class="header">
+                <img src="assets/logo-fundo-claro.png" alt="Logo" height="60" />
+            </section>
+            <form action="#" method="POST" id="form">
+                <section class="form-section" id="dados-cliente-contrato">
+                    <div>
+                        <h5 class="form-section-title">
+                            Dados do Cliente e Contrato
+                        </h5>
+                        <hr />
+                    </div>
+
+                    <div class="form-div">
+                        <label for="genero" class="form-label">Gênero</label>
+                        <select
+                            class="form-select"
+                            id="genero"
+                            name="genero"
+                            required
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="homem">Homem</option>
+                            <option value="mulher">Mulher</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="idoso" class="form-label">Idoso</label>
+                        <select
+                            class="form-select"
+                            id="idoso"
+                            name="idoso"
+                            required
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="parceiro" class="form-label"
+                            >Parceiro</label
+                        >
+                        <select
+                            class="form-select"
+                            id="parceiro"
+                            name="parceiro"
+                            required
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="dependentes" class="form-label"
+                            >Dependentes</label
+                        >
+                        <select
+                            class="form-select"
+                            id="dependentes"
+                            name="dependentes"
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="tipo_contrato" class="form-label"
+                            >Tipo de Contrato</label
+                        >
+                        <select
+                            class="form-select"
+                            id="tipo_contrato"
+                            name="tipo_contrato"
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="mensal">Mensal</option>
+                            <option value="um_ano">Um Ano</option>
+                            <option value="dois_anos">Dois Anos</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="tempo_contrato_meses" class="form-label"
+                            >Tempo de Contrato (Meses)</label
+                        >
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="tempo_contrato_meses"
+                            name="tempo_contrato_meses"
+                        />
+                    </div>
+                </section>
+
+                <section class="form-section" id="servicos">
+                    <div>
+                        <h5 class="form-section-title">Serviços</h5>
+                        <hr />
+                    </div>
+
+                    <div class="form-div">
+                        <label for="servico_telefone" class="form-label"
+                            >Serviço de Telefone</label
+                        >
+                        <select
+                            class="form-select"
+                            id="servico_telefone"
+                            name="servico_telefone"
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="linhas_multiplas" class="form-label"
+                            >Linhas Múltiplas</label
+                        >
+                        <select
+                            class="form-select"
+                            id="linhas_multiplas"
+                            name="linhas_multiplas"
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="nao">Não</option>
+                            <option value="sim">Sim</option>
+                            <option value="sem_telefone">Sem Telefone</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="tipo_internet" class="form-label"
+                            >Tipo de Internet</label
+                        >
+                        <select
+                            class="form-select"
+                            id="tipo_internet"
+                            name="tipo_internet"
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="dsl">DSL</option>
+                            <option value="fibra">Fibra</option>
+                            <option value="sem_internet">Sem Internet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="seguranca_online" class="form-label"
+                            >Segurança Online</label
+                        >
+                        <select
+                            class="form-select"
+                            id="seguranca_online"
+                            name="seguranca_online"
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="nao">Não</option>
+                            <option value="sim">Sim</option>
+                            <option value="sem_internet">Sem Internet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="backup_online" class="form-label"
+                            >Backup Online</label
+                        >
+                        <select
+                            class="form-select"
+                            id="backup_online"
+                            name="backup_online"
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="nao">Não</option>
+                            <option value="sim">Sim</option>
+                            <option value="sem_internet">Sem Internet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="protecao_dispositivo" class="form-label"
+                            >Proteção de Dispositivo</label
+                        >
+                        <select
+                            class="form-select"
+                            id="protecao_dispositivo"
+                            name="protecao_dispositivo"
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="nao">Não</option>
+                            <option value="sim">Sim</option>
+                            <option value="sem_internet">Sem Internet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="suporte_tecnico" class="form-label"
+                            >Suporte Técnico</label
+                        >
+                        <select
+                            class="form-select"
+                            id="suporte_tecnico"
+                            name="suporte_tecnico"
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="nao">Não</option>
+                            <option value="sim">Sim</option>
+                            <option value="sem_internet">Sem Internet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="streaming_tv" class="form-label"
+                            >Streaming TV</label
+                        >
+                        <select
+                            class="form-select"
+                            id="streaming_tv"
+                            name="streaming_tv"
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="nao">Não</option>
+                            <option value="sim">Sim</option>
+                            <option value="sem_internet">Sem Internet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="streaming_filmes" class="form-label"
+                            >Streaming Filmes</label
+                        >
+                        <select
+                            class="form-select"
+                            id="streaming_filmes"
+                            name="streaming_filmes"
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="nao">Não</option>
+                            <option value="sim">Sim</option>
+                            <option value="sem_internet">Sem Internet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="cobranca_digital" class="form-label"
+                            >Cobrança Digital</label
+                        >
+                        <select
+                            class="form-select"
+                            id="cobranca_digital"
+                            name="cobranca_digital"
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="0">Não</option>
+                            <option value="1">Sim</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="metodo_pagamento" class="form-label"
+                            >Método de Pagamento</label
+                        >
+                        <select
+                            class="form-select"
+                            id="metodo_pagamento"
+                            name="metodo_pagamento"
+                        >
+                            <option value="" selected disabled hidden>
+                                Selecione...
+                            </option>
+                            <option value="cheque_eletronico">
+                                Cheque Eletrônico
+                            </option>
+                            <option value="cartao_credito_automatica">
+                                Cartão de Crédito (Automático)
+                            </option>
+                            <option value="transferencia_bancaria_automatica">
+                                Transferência Bancária (Automática)
+                            </option>
+                            <option value="cheque_enviado">
+                                Cheque Enviado
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="cobranca_mensal" class="form-label"
+                            >Cobrança Mensal (R$)</label
+                        >
+                        <input
+                            type="number"
+                            step="0.01"
+                            class="form-control"
+                            id="cobranca_mensal"
+                            name="cobranca_mensal"
+                        />
+                    </div>
+
+                    <div class="form-div">
+                        <label for="cobranca_total" class="form-label"
+                            >Cobrança Total (R$)</label
+                        >
+                        <input
+                            type="number"
+                            step="0.01"
+                            class="form-control"
+                            id="cobranca_total"
+                            name="cobranca_total"
+                        />
+                    </div>
+                </section>
+                <section class="form-section">
+                    <button type="button" class="btn btn-form" id="btn-form">
+                        Realizar previsão
+                    </button>
+                </section>
+            </form>
+        </main>
+        <dialog id="modal-response" class="modal">
+            <div class="modal-content">
+                <div class="modal-response-title">
+                    <h2 id="title-modal">Resultado da Previsão</h2>
+                    <hr />
+                </div>
+
+                <div class="modal-body">
+                    <p id="response-prediction">Carregando...</p>
+                    <p id="response-probability"></p>
+                </div>
+                <div class="modal-btns">
+                    <button
+                        type="button"
+                        class="btn btn-modal-close"
+                        id="btn-modal-close"
+                    >
+                        Fechar
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-modal btn-retry"
+                        id="btn-retry"
+                        hidden
+                    >
+                        Tentar novamente
+                    </button>
+                </div>
+            </div>
+        </dialog>
+    </body>
+</html>
