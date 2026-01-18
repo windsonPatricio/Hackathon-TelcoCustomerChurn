@@ -13,9 +13,9 @@ Abaixo, o desempenho do modelo nos dados de teste, com foco na classe de interes
 | **F1-Score** | **62%** | O equilíbrio harmônico entre precisão e recall, utilizado para comparar a robustez geral do modelo na classe minoritária. |
 
 > **Recursos Técnicos Adicionais:**
-> * **Documentação e Ambiente:** Para configuração de dependências, arquitetura e metodologia, acesse o [README Técnico](https://github.com/windsonPatricio/Hackathon-TelcoCustomerChurn/blob/main/ml/notebooks/README.md).
-> * **Análise de Dados:** Estudo visual das variáveis e hipóteses de negócio no notebook de [Análise Exploratória (EDA)](https://github.com/windsonPatricio/Hackathon-TelcoCustomerChurn/blob/main/ml/notebooks/01_eda.ipynb).
-> * **Modelagem:** Pipeline completo de treinamento e validação no notebook de [Modelagem](https://github.com/windsonPatricio/Hackathon-TelcoCustomerChurn/blob/main/ml/notebooks/02_churn_modeling.ipynb).
+> * **Documentação e Ambiente:** Para configuração de dependências, arquitetura e metodologia, acesse o [README Técnico](../ml/notebooks/README.md).
+> * **Análise de Dados:** Estudo visual das variáveis e hipóteses de negócio no notebook de [Análise Exploratória (EDA)](../ml/notebooks/01_eda.ipynb).
+> * **Modelagem:** Pipeline completo de treinamento e validação no notebook de [Modelagem](../ml/notebooks/02_churn_modeling.ipynb).
 
 ---
 
