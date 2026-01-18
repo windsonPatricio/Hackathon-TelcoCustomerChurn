@@ -50,7 +50,7 @@ graph LR
 
 Para detalhes específicos de integração, consulte:
 
-- [**Referência da API e Contratos:**](/docs/api-info-contract.md)) Endpoints, tipos de dados e campos obrigatórios.
+- [**Referência da API e Contratos:**](/docs/api-info-contract.md) Endpoints, tipos de dados e campos obrigatórios.
 - [**Guia de Erros e Status Codes:**](/docs/error-codes.md) Padrões de resposta para validações e falhas de integração.
 - [**Performance do Modelo:**](/docs/model.md) Métricas de Acurácia, Precision e Recall.
 
