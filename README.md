@@ -4,7 +4,10 @@
 </div>
 
 <div align="center">
-    <img src="https://img.shields.io/badge/Bootstrap-1DB980?style=for-the-badge&logo=bootstrap&logoColor=white" height="30"/>&nbsp;
+    <img src="https://img.shields.io/badge/HTML-1DB980?style=for-the-badge&logo=html5&logoColor=white" height="30"/>&nbsp;
+    <img src="https://img.shields.io/badge/CSS-1DB980?style=for-the-badge&logo=css&logoColor=white" height="30"/>&nbsp;
+    <img src="https://img.shields.io/badge/JavaScript-1DB980?style=for-the-badge&logo=javascript&logoColor=white" height="30"/>&nbsp;
+    <img src="https://img.shields.io/badge/Axios-1DB980?style=for-the-badge&logo=axios&logoColor=white" height="30"/>&nbsp;
     <img src="https://img.shields.io/badge/Java-1DB980?style=for-the-badge&logo=openjdk&logoColor=white" height="30"/>&nbsp;
     <img src="https://img.shields.io/badge/Spring_Boot-1DB980?style=for-the-badge&logo=spring&logoColor=white" height="30"/>&nbsp;
     <img src="https://img.shields.io/badge/Python-1DB980?style=for-the-badge&logo=python&logoColor=white" height="30"/>&nbsp;
@@ -55,7 +58,7 @@ Para detalhes específicos de integração, consulte:
 
 ## Execução via Docker Compose
 
-A forma mais simples de rodar a solução completa (**Backend + ML**) é utilizando o Docker Compose.
+A forma mais simples de rodar a solução completa (**Frontend + Backend + ML**) é utilizando o Docker Compose.
 
 ### Pré-requisitos
 
@@ -90,13 +93,21 @@ docker-compose up --build
 
 Após a inicialização, os serviços estarão disponíveis nas seguintes portas:
 
-- **Frontend (Principal):** `http://localhost:3000`  
+- **Frontend (Principal):** `http://localhost`  
 - **Backend Java:** `http://localhost:8080`
 - **Model API (Interna):** `http://localhost:8000`
 
 ---
 
 ## Tecnologias Utilizadas
+
+### Frontend
+
+- **HTML5**
+- **CSS**
+- **JavaScript**
+- **Axios**
+- **Nginx**
 
 ### Backend
 
