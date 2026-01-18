@@ -48,6 +48,21 @@ services:
           memory: 500M
         reservations:
           memory: 300M
+  
+  # ========================================
+  # Serviço Frontend
+  # ========================================    
+  frontend:
+      build:
+        context: ./frontend
+        dockerfile: Dockerfile
+      container_name: frontend_container
+      ports:
+        - "80:80"
+      depends_on:
+        - api-backend
+      networks:
+        - app-network
 
 # Rede interna
 networks:
