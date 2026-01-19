@@ -1,0 +1,26 @@
+[project]
+name = "retermais-churn-experiments"
+version = "0.1.0"
+description = "Ambiente de EDA e prototipagem de modelos para o Hackathon ReterMais (Telco Customer Churn)."
+readme = "README.md"
+requires-python = ">=3.11.11"
+dependencies = [
+    "ipywidgets>=8.1.8",
+    "lightgbm>=4.6.0",
+    "matplotlib>=3.10.8",
+    "numpy<2.3",
+    "optuna>=4.6.0",
+    "pandas>=2.3.3",
+    "plotly>=6.5.2",
+    "pyarrow>=22.0.0",
+    "scikit-learn>=1.8.0",
+    "seaborn>=0.13.2",
+    "statsmodels>=0.14.6",
+    "xgboost>=3.1.2",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.1.0",
+    "jupyterlab>=4.5.1",
+]

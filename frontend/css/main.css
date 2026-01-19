@@ -1,0 +1,340 @@
+@charset "UTF-8";
+
+/*  Reset  */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--fonte);
+    min-height: 100svh;
+}
+
+img,
+picture,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+}
+
+p,
+li {
+    text-wrap: pretty;
+}
+
+/* Fonts */
+
+@font-face {
+    font-display: swap;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/inter-regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-display: swap;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    src: url("../fonts/inter-bold.woff2") format("woff2");
+}
+
+/* Variables */
+
+:root {
+    --font: "Inter", sans-serif;
+    --h1: 700 3rem /1.2 var(--font);
+    --h2: 700 2.25rem /1.2 var(--font);
+    --h3: 700 2rem /1.2 var(--font);
+    --h4: 700 1.75rem /1.2 var(--font);
+    --h5: 700 1.5rem /1.2 var(--font);
+    --h6: 700 1rem /1.2 var(--font);
+    --p: 400 1rem /1.5 var(--font);
+    --legend: 400 0.875rem /1.2 var(--font);
+
+    --bg-page: #f5f5f5;
+    --bg-form-fields: #fafafa;
+    --bg-button-hover: #0da371;
+    --c-border: #e8e8e8;
+    --c-text: #181818;
+    --c-text-fields: #5e5e5e;
+    --c-1: #0f172a;
+    --c-2: #6366f1;
+    --c-3: #10b981;
+    --c-succes: #10b981;
+    --c-error: #dc3545;
+
+    --spacing-1: 0.125rem;
+    --spacing-2: 0.25rem;
+    --spacing-3: 0.5rem;
+    --spacing-4: 0.75rem;
+    --spacing-5: 1rem;
+    --spacing-6: 1.5rem;
+    --spacing-7: 2rem;
+    --spacing-8: 2.5rem;
+    --spacing-9: 3rem;
+    --spacing-10: 3.5rem;
+    --spacing-11: 4rem;
+    --spacing-12: 4.5rem;
+    --spacing-13: 5rem;
+    --spacing-14: 6rem;
+
+    --shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+    --shadow-modal: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/*  Global  */
+
+h1 {
+    font: var(--h1);
+}
+
+h2 {
+    font: var(--h2);
+}
+
+h3 {
+    font: var(--h3);
+}
+
+h4 {
+    font: var(--h4);
+}
+
+h5 {
+    font: var(--h5);
+}
+
+h6 {
+    font: var(--h6);
+}
+
+p,
+li {
+    font: var(--p);
+}
+
+.btn {
+    display: flex;
+    gap: var(--spacing-3);
+    align-items: center;
+    justify-items: center;
+    width: fit-content;
+    font: var(--h6);
+    padding: var(--spacing-5) var(--spacing-7);
+    background-color: var(--c-3);
+    color: var(--c-1);
+    border-radius: var(--spacing-3);
+    border: none;
+    text-decoration: none;
+    margin: auto;
+}
+
+.btn:hover {
+    transition: 0.25s ease-in-out;
+    background-color: var(--bg-button-hover);
+    box-shadow: var(--shadow);
+}
+
+body {
+    background-color: var(--bg-page);
+    font-family: var(--font), sans-serif;
+    color: var(--c-text);
+    margin: 4rem 2rem;
+}
+
+/* Content */
+
+main {
+    display: grid;
+    max-width: 800px;
+    margin: auto;
+    gap: var(--spacing-7);
+    background-color: white;
+    border-radius: 16px;
+    border: 1px solid var(--c-border);
+    padding: 2rem;
+    height: auto;
+}
+
+/* Form */
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: var(--c-border);
+    margin: var(--spacing-3) 0;
+}
+
+form {
+    display: grid;
+    gap: var(--spacing-7);
+}
+
+.form-section {
+    display: grid;
+    gap: var(--spacing-5);
+}
+
+.form-div {
+    display: grid;
+    gap: var(--spacing-2);
+}
+
+.form-select {
+    --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    display: block;
+    width: 100%;
+    min-height: 2.5rem;
+    font: 400 1rem/1.5 var(--font);
+    color: var(--c-text-fields);
+    padding: 0.25rem 0.5rem;
+    appearance: none;
+    background-color: var(--bg-form-fields);
+    background-image:
+        var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid var(--c-border);
+    border-radius: 8px;
+    transition:
+        border-color 0.15s ease-in-out,
+        box-shadow 0.15s ease-in-out;
+}
+
+input {
+    display: block;
+    width: 100%;
+    min-height: 2.5rem;
+    font: 400 1rem/1.5 var(--font);
+    color: var(--c-text-fields);
+    padding: 0.25rem 0.5rem;
+    appearance: none;
+    background-color: var(--bg-form-fields);
+    border: 1px solid var(--c-border);
+    border-radius: 8px;
+}
+
+input:hover,
+select:hover {
+    border-color: var(--c-2);
+}
+
+input:focus,
+select:focus {
+    border-color: var(--c-3);
+    box-shadow: 0 0 0 4px rgba(var(--c-3), 0.1);
+}
+
+.form-div:focus-within label {
+    color: var(--c-2);
+    font-weight: bold;
+}
+
+/* Errors */
+
+.form-control.invalid,
+.form-select.invalid {
+    border-color: var(--c-error);
+    background-image: none;
+}
+
+@keyframes shake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.invalid {
+    animation: shake 0.2s ease-in-out 0s 2;
+}
+
+/* Modal */
+
+#modal-response {
+    border: none;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: auto;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: var(--shadow-modal);
+    position: fixed;
+}
+
+#title-modal {
+    text-align: center;
+}
+
+#modal-response::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    padding: 2rem;
+    display: grid;
+    gap: 3rem;
+    text-align: left;
+}
+
+.modal-body > * {
+    text-align: center;
+    font-size: 1.25rem;
+}
+
+.modal-btns {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 0 auto;
+}
+
+.modal-btns > * {
+    margin: 0;
+}
+
+.btn-modal-close {
+    background-color: var(--c-error);
+}
+
+.btn-modal-close:hover {
+    background-color: #ca3140;
+}
+
+/* Final */
+
+[hidden] {
+    display: none !important;
+}
