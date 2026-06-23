@@ -135,7 +135,7 @@ Trabalho desenvolvido em conjunto pelos times de Backend e Data Science.
 
 | Colaborador | Função | GitHub |
 | :--- | :--- | :--- |
-| **Augusto Brandão** | Backend Developer | [@gutoobrandao](https://github.com/gutoobrandao) |
+| **Augusto Brandão** | Backend Developer | [@augusto-brandao](https://github.com/augusto-brandao) |
 | **Windson Patricio** | Backend Developer | [@windsonPatricio](https://github.com/windsonPatricio) |
 | **Brizza Nathielly** | Backend Developer | [@whoisbrizza](https://github.com/whoisbrizza) |
 | **Lucas Zimmermann** | Backend Developer | [@zzzimmer](https://github.com/zzzimmer) |
